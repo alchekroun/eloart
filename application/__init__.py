@@ -1,7 +1,11 @@
 from flask import Flask
 from flask_session import Session
+from flaskext.mysql import MySQL
+from flask_sqlalchemy import SQLAlchemy
 
 sess = Session()
+mysql = MySQL()
+db = SQLAlchemy()
 
 
 def create_app():
@@ -12,6 +16,8 @@ def create_app():
     app.config.from_object('config.Config')
 
     # init
+    mysql.init_app(app)
+    db.init_app(app)
 
     with app.app_context():
         # Include Routes
