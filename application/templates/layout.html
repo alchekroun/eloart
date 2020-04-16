@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %} </title>
+    {% block style %}
+    {% endblock %}
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('main_bp.index') }}">Index</a></li>
+            <li><a href="{{ url_for('main_bp.ranks') }}">Ranking</a></li>
+            <li><a href="{{ url_for('main_bp.fight') }}">Fighting</a></li>
+        </ul>
+    </nav>
+    {% block main %}
+    {% endblock %}
+</body>
+</html>
