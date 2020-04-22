@@ -1,5 +1,9 @@
 {% extends "layout.html" %}
 
 {% block main %}
-<h1>{{ f1 }}
+<ul>
+    {% for rank in allrank %}
+        <li>{{ rank["id"] }} ; {{ rank["elo"] }} ; {{ rank["nom"] }}</li>
+    {% endfor %}
+</ul>
 {% endblock%}

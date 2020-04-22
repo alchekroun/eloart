@@ -14,12 +14,6 @@ def index():
     return render_template('index.html')
 
 
-@main_bp.route('/a/')
-def a():
-    ok = Piece.query.all()
-    return render_template('index.html', ok=ok[0])
-
-
 @main_bp.route('/ranks/')
 def ranks():
     allrank = Piece.query.order_by(Piece.elo.desc())
