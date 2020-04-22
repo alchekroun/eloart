@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %} {% endblock %} </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.min.css') }}">
     {% block style %}
     {% endblock %}
 </head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('main_bp.index') }}">Index</a></li>
-            <li><a href="{{ url_for('main_bp.ranks') }}">Ranking</a></li>
-            <li><a href="{{ url_for('main_bp.fight') }}">Fighting</a></li>
-        </ul>
+<body style="font-family: Inconsolata, monospace;" >
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean">
+        <div class="container"><a class="navbar-brand" href="{{ url_for('main_bp.index') }}">EloArt</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse"
+                id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="{{ url_for('main_bp.ranks') }}">Ranks</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="{{ url_for('main_bp.about') }}">About it</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
     {% block main %}
+    {% endblock %}
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    {% block script %}
     {% endblock %}
 </body>
 </html>

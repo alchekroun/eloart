@@ -21,12 +21,9 @@ def ranks():
     return render_template('ranks.html', allrank=allrank)
 
 
-@main_bp.route('/fight/')
-def fight():
-    pickfighter = Piece.query.order_by(func.rand()).limit(1)
-    f1 = pickfighter[0]
-    f2 = pickfighter[1]
-    return render_template('fight.html', f1=f1, f2=f2)
+@main_bp.route('/about/')
+def about():
+    return render_template('about.html')
 
 
 @main_bp.route('/score/<idPiece1>/<idPiece2>/', methods=['PUT'])
