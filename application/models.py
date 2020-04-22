@@ -9,6 +9,7 @@ class Piece(db.Model):
     linkImage = db.Column(db.String, nullable=False)
     autheur = db.Column(db.String, nullable=False)
     date = db.Column(db.String, nullable=False)
+    wikiAutheur = db.Column(db.String, nullable=True)
     elo = db.Column(db.Integer, nullable=False, default=1500)
 
     def __repr__(self):
