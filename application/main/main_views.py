@@ -11,7 +11,10 @@ main_bp = Blueprint('main_bp', __name__, template_folder='templates', static_fol
 
 @main_bp.route('/')
 def index():
-    return render_template('index.html')
+    pickfighter = Piece.query.order_by(func.rand()).limit(1)
+    f1 = pickfighter[0]
+    f2 = pickfighter[1]
+    return render_template('index.html', f1=f1, f2=f2)
 
 
 @main_bp.route('/ranks/')
