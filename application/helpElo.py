@@ -3,5 +3,4 @@ def probawin(ra, rb):
 
 
 def newelo(ra, rb, score):
-    print(ra + 32 * (score - probawin(ra, rb)))
     return ra + 32 * (score - probawin(ra, rb))

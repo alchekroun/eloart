@@ -2,25 +2,85 @@
 
 {% block title %}Espiegle{% endblock %}
 
+{% block style %}
+    <style type="text/css">
+        .progressbar {
+          width: 80%;
+          margin: 25px auto;
+          border: solid 1px #000;
+        }
+        .progressbar .inner {
+          height: 15px;
+          animation: progressbar-countdown;
+          animation-duration: 40s;
+          animation-iteration-count: 1;
+          animation-fill-mode: forwards;
+          animation-play-state: paused;
+          animation-timing-function: linear;
+        }
+        @keyframes progressbar-countdown {
+          0% {
+            width: 100%;
+            background: #000000;
+          }
+          100% {
+            width: 0%;
+            background: #ffffff;
+          }
+        }
+    </style>
+{% endblock %}
+
 {% block main %}
+    <div id="aaaa">
+        <input id="{{ f1['id'] }}" hidden disabled>
+        <input id="{{ f2['id'] }}" hidden disabled>
+    </div>
     <div class="container">
         <div>
-            <p class="text-center">Vote between two piece of Art. That's all.</p>
+            <h4 class="text-center">Vote between two piece of Art. That's all.</h4>
         </div>
         <div class="row text-center">
             <div class="col"><span>{{ f1["nom"] }} ({{ f1["date"] }}), {{ f1["autheur"] }}</span></div>
             <div class="col"><span>{{ f2["nom"] }} ({{ f2["date"] }}), {{ f2["autheur"] }}</span></div>
         </div>
         <div class="row row-cols-2 d-lg-flex">
-            <div class="col"><a href="#"><img id="imgp" class="float-left" src="{{ f1['linkImage'] }}"></a></div>
-            <div class="col"><a href="#"><img id="imgp" class="float-left" src="{{ f2['linkImage'] }}"></a></div>
+            <div class="col"><a id="ai1" href="#progressbar1"><img id="imgp" class="float-left" src="{{ f1['linkImage'] }}"></a></div>
+            <div class="col"><a id="ai2" href="#progressbar1"><img id="imgp" class="float-left" src="{{ f2['linkImage'] }}"></a></div>
         </div>
     </div>
-    <div class="progress">
-        <div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">50%</div>
-    </div>
+    <div id='progressbar1'></div>
 
-<footer>
-    <a href="{{url_for('main_bp.init_db') }}">init la db</a>
-</footer>
+    <footer>
+        <a href="{{url_for('main_bp.init_db') }}">init la db</a>
+    </footer>
 {% endblock%}
+
+{% block script %}
+    <script>
+        function createProgressbar(id, duration, callback) {
+            var progressbar = document.getElementById(id);
+            progressbar.className = 'progressbar';
+            var progressbarinner = document.createElement('div');
+            progressbarinner.className = 'inner';
+            progressbarinner.style.animationDuration = duration;
+            if (typeof(callback) === 'function') {
+            progressbarinner.addEventListener('animationend', callback);
+            }
+            progressbar.appendChild(progressbarinner);
+            progressbarinner.style.animationPlayState = 'running';
+        }
+
+        function addlink(){
+            var linkimg1 = document.getElementById("ai1");
+            var linkimg2 = document.getElementById("ai2");
+            var div = document.getElementById("aaaa");
+            var id1 = div.children[0].id;
+            var id2 = div.children[1].id;
+            linkimg1.href = "/score/" + id1 + "/" + id2;
+            linkimg2.href = "/score/" + id2 + "/" + id1;
+        }
+        createProgressbar('progressbar1', '10s');
+        setTimeout(addlink, 10000)
+    </script>
+{% endblock %}

@@ -1,6 +1,6 @@
 import requests
 from ..helpElo import newelo
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for
 from sqlalchemy.sql.expression import func
 
 from application import db
@@ -11,9 +11,8 @@ main_bp = Blueprint('main_bp', __name__, template_folder='templates', static_fol
 
 @main_bp.route('/')
 def index():
-    pickfighter = Piece.query.order_by(func.rand()).limit(1)
-    f1 = pickfighter[0]
-    f2 = pickfighter[1]
+    f1 = Piece.query.order_by(func.rand()).limit(1).first()
+    f2 = Piece.query.filter(Piece.nom != f1.nom).order_by(func.rand()).limit(1).first()
     return render_template('index.html', f1=f1, f2=f2)
 
 
@@ -29,14 +28,14 @@ def about():
     return render_template('about.html')
 
 
-@main_bp.route('/score/<idPiece1>/<idPiece2>/', methods=['PUT'])
+@main_bp.route('/score/<idPiece1>/<idPiece2>/')
 def score(idPiece1, idPiece2):
     winner = Piece.query.get(idPiece1)
     loser = Piece.query.get(idPiece2)
     winner.elo = newelo(winner.elo, loser.elo, 1)
     loser.elo = newelo(loser.elo, winner.elo, 0)
     db.session.commit()
-    return redirect(url_for('main_bp.fight'))
+    return redirect(url_for('main_bp.index'))
 
 
 @main_bp.route('/piece/<idPiece>')
