@@ -2,7 +2,7 @@ from . import db
 
 
 class Piece(db.Model):
-    __tablename__ = "piece"
+    __tablename__ = "Piece"
 
     id = db.Column(db.Integer, primary_key=True)
     nom = db.Column(db.String, nullable=False)

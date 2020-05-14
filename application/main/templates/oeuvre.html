@@ -1,7 +1,12 @@
 {% extends "layout.html" %}
 
+{% block title %}Espiegle : {{ piece["elo"] }} {% endblock %}
+
 {% block main %}
-<h1>{{ piece["nom"] }} </h1>
-<img src="{{ piece['linkImage'] }}"/>
-<h4><a href="{{ piece['wikiAutheur'] }}">{{ piece['autheur'] }}</a></h4>
+<div class="container">
+    <h3 class="text-center">{{ piece["nom"] }}</h3>
+    <img id="imgp" src="{{ piece['linkImage'] }}">
+    <p>{{ piece['autheur'] }}</p>
+    <span>{{ piece['date'] }}</span>
+</div>
 {% endblock%}

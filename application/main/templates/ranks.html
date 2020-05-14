@@ -1,9 +1,20 @@
 {% extends "layout.html" %}
 
+{% block title %}Espiegle : Rank{% endblock %}
 {% block main %}
-<ul>
-    {% for rank in allrank %}
-        <li>{{ rank["id"] }} ; {{ rank["elo"] }} ; {{ rank["nom"] }}</li>
-    {% endfor %}
-</ul>
+    <div class="container">
+        <div class="table-responsive table-borderless text-center shadow-sm">
+            <table class="table table-bordered table-sm">
+                <tbody>
+                    {% for rank in allrank %}
+                        <tr>
+                            <td class="text-center" style="padding: 0px;width: 10%;"><a href="/piece/{{ rank['id'] }}">{{ loop.index0 + 1 }}</a></td>
+                            <td style="padding: 0px;width: 50%;">{{ rank["nom"] }}</td>
+                            <td style="padding: 0px;width: 40%;">{{ rank["autheur"] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock%}
